@@ -7,8 +7,7 @@ var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs');
 var jwt = require("jsonwebtoken");
 const asyncHandler = require('express-async-handler');
-import express from "express";
-import ServerlessHttp from "serverless-http";
+var ServerlessHttp = require("serverless-http");
 
 const cookieParser = require('cookie-parser');
 const saltRounds = 10;
@@ -32,7 +31,12 @@ app.use(cors());
   
 // });
 
-
+api.get("/.netlify/functions/api", (_req, res ) => {
+    res.status(200).json(
+     {mes: "Hello World!"}
+   )
+ });
+ 
 app.get('/workTime/:date', asyncHandler( async (req, res) => {
     const result = await WorkTime.findAll({
         include: [{
