@@ -31,12 +31,12 @@ app.use(cors());
   
 // });
 
-api.get("/.netlify/functions/api", (_req, res ) => {
+app.get("/.netlify/functions/api", (_req, res ) => {
     res.status(200).json(
      {mes: "Hello World!"}
    )
  });
- 
+
 app.get('/workTime/:date', asyncHandler( async (req, res) => {
     const result = await WorkTime.findAll({
         include: [{
