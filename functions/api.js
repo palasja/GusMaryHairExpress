@@ -90,7 +90,7 @@ app.get('/workDateByMonth/:date', asyncHandler( async (req, res) => {
 }));
 
 
-app.get('/feedback',  asyncHandler( async (req, res) => {
+app.get('"/.netlify/functions/api/feedback',  asyncHandler( async (req, res) => {
   let result = await Feedback.findAll();
   res.status(200).json(result);
 }));
