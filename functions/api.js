@@ -33,7 +33,12 @@ app.use(cors());
 
 app.get("/.netlify/functions/api", (_req, res ) => {
     res.status(200).json(
-     {mes: "Hello World!"}
+     {mes: "Hello World!",
+        host: process.env.MYSQL_HOST,
+        ADMIN_PASSWOR: process.env.MYSQL_ADMIN_PASSWORD,
+        MYSQL_ADMIN: process.env.MYSQL_ADMIN,
+        MYSQL_DATABASE: process.env.MYSQL_DATABASE
+     }
    )
  });
 
