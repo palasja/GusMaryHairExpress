@@ -6,9 +6,15 @@ import serverless from "serverless-http";
 const api = express();
 
 const router = Router();
-router.get("/hello", (req, res ) => {res.send("Hello World!")});
+api.get("/.netlify/functions/api", (req, res ) => {return res.json({mes: "Hello World!"})});
 
 api.use("/api/", router);
 
 api.use("/api/hi", (req, res ) => {res.send("Hi")});
-export const handler = serverless(api);
+
+const handler = serverless(api);
+
+module.export.handler = async(event, context) =>{
+  const result = await handler(event, context)
+  return result;
+}
