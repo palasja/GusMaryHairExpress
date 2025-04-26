@@ -196,6 +196,7 @@ app.get('/logout', function  (req, res) {
 
 app.get('/auth', function  (req, res) {
     const token = req.cookies.accessToken;
+    console.log("token = " + token);
     try{
         var decoded = jwt.verify(token, process.env.SECRET);
         res.status(200).json({
@@ -206,19 +207,19 @@ app.get('/auth', function  (req, res) {
         res.sendStatus(403);
     }
 });
-
-app.use((req, res, next) => {
-    const token = req.cookies.accessToken;
-    jwt.verify(token, process.env.SECRET,  function(err, decoded) {
-        if(err || decoded.adminName !== process.env.ADMIN_LOGIN) {
-            res.sendStatus(403);
-            // res.end;
-        } else {
-            next();    
-        }
+//check auth,  doesn't work on netlify
+// app.use((req, res, next) => {
+//     const token = req.cookies.accessToken;
+//     jwt.verify(token, process.env.SECRET,  function(err, decoded) {
+//         if(err || decoded.adminName !== process.env.ADMIN_LOGIN) {
+//             res.sendStatus(403);
+//             // res.end;
+//         } else {
+//             next();    
+//         }
         
-    });
-})
+//     });
+// })
 
 app.get('/addDate/:date.:time', asyncHandler( async (req, res) => {
     const [wd, created] = await WorkDate.findOrCreate({
